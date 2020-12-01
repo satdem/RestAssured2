@@ -88,6 +88,22 @@ public class ZippoTest {
         ;
     }
 
+    @Test
+    public void bodyJsonPathTest3()
+    {
+        given()
+
+                .when()
+                .get("http://api.zippopotam.us/us/90210")
+
+                .then()
+                .log().body()
+                .body("places[0].'place name'", equalTo("Beverly Hills"))
+                // arasında bosluk olan key lerde keyin başına ve sonuna tek tırnak konur (''place name'')
+                .statusCode(200)
+        ;
+    }
+
 
 
 
