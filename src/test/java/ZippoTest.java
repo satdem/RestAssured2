@@ -1,6 +1,8 @@
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,11 +13,17 @@ import static org.hamcrest.Matchers.*;
 public class ZippoTest {
 
     private ResponseSpecification responseSpecification;
+    private RequestSpecification requestSpecification;
 
     @BeforeClass
     public void setup()
     {
         baseURI = "http://api.zippopotam.us";  // static REST Assured un kendi değişkeni
+
+        requestSpecification = new RequestSpecBuilder()
+                .log(LogDetail.URI)
+                .setAccept(ContentType.JSON)
+                .build();
 
         responseSpecification = new ResponseSpecBuilder()
                 .expectStatusCode(200)
@@ -23,6 +31,20 @@ public class ZippoTest {
                 .log(LogDetail.BODY)
                 .build();
 
+    }
+
+    @Test
+    public void bodyArraySizeTest_ResponseSpecification_RequestSpecification()
+    {
+        given()
+                .spec(requestSpecification)
+                .when()
+                .get("/us/90210")// http ile başlamıyorsa baseURI kullanacak.
+
+                .then()
+                .body("places", hasSize(1))
+                .spec(responseSpecification)
+        ;
     }
 
     @Test
