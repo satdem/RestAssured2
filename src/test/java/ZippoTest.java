@@ -1,4 +1,7 @@
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -7,11 +10,49 @@ import static org.hamcrest.Matchers.*;
 
 public class ZippoTest {
 
+    private ResponseSpecification responseSpecification;
+
     @BeforeClass
     public void setup()
     {
-        baseURI = "http://api.zippopotam.us";
+        baseURI = "http://api.zippopotam.us";  // static REST Assured un kendi değişkeni
 
+        responseSpecification = new ResponseSpecBuilder()
+                .expectStatusCode(200)
+                .expectContentType(ContentType.JSON)
+                .log(LogDetail.BODY)
+                .build();
+
+    }
+
+    @Test
+    public void bodyArraySizeTestResponseSpecification()
+    {
+        given()
+                .log().uri()
+                .when()
+                .get("/us/90210")// http ile başlamıyorsa baseURI kullanacak.
+
+                .then()
+                .body("places", hasSize(1))
+                .spec(responseSpecification)
+        ;
+    }
+
+
+    @Test
+    public void bodyArraySizeTestBaseUri()
+    {
+        given()
+                .log().uri()
+                .when()
+                .get("/us/90210")// http ile başlamıyorsa baseURI kullanacak.
+
+                .then()
+                .log().body()
+                .body("places", hasSize(1))
+                .statusCode(200)
+        ;
     }
 
 
@@ -203,20 +244,7 @@ public class ZippoTest {
         }
     }
 
-    @Test
-    public void bodyArraySizeTestBaseUri()
-    {
-        given()
-                .log().uri()
-                .when()
-                .get("/us/90210")// http ile başlamıyorsa baseURI kullanacak.
 
-                .then()
-                .log().body()
-                .body("places", hasSize(1))
-                .statusCode(200)
-        ;
-    }
 
 
 }
