@@ -136,6 +136,32 @@ public class ZippoTest {
         ;
     }
 
+    @Test
+    public void pathParamTest()
+    {
+        String country="us";
+        String zipKod="90210";
 
+        given()
+                .pathParam("country", country)
+                .pathParam("zipKod", zipKod)
+                .log().uri()  // çalışmadna önce oluşturulan URL verir.
+
+                .when()
+                .get("http://api.zippopotam.us"+"/{country}/{zipKod}")
+
+                .then()
+                .log().body()
+                .body("places", hasSize(1))
+                ;
+    }
 
 }
+
+
+
+
+
+
+
+
