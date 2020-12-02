@@ -1,10 +1,19 @@
 import io.restassured.http.ContentType;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 public class ZippoTest {
+
+    @BeforeClass
+    public void setup()
+    {
+        baseURI = "http://api.zippopotam.us";
+
+    }
+
 
     @Test
     public void test()
@@ -192,6 +201,21 @@ public class ZippoTest {
                     .body("meta.pagination.page", equalTo(page))
             ;
         }
+    }
+
+    @Test
+    public void bodyArraySizeTestBaseUri()
+    {
+        given()
+                .log().uri()
+                .when()
+                .get("/us/90210")// http ile başlamıyorsa baseURI kullanacak.
+
+                .then()
+                .log().body()
+                .body("places", hasSize(1))
+                .statusCode(200)
+        ;
     }
 
 
