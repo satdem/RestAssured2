@@ -10,7 +10,7 @@ public class Location {
     private String countryabbreviation;
     private List<Place> places;
 
-    @JsonProperty("post code")
+
     public String getPostcode() {
         return postcode;
     }
@@ -19,7 +19,7 @@ public class Location {
         return country;
     }
 
-    @JsonProperty("country abbreviation")
+
     public String getCountryabbreviation() {
         return countryabbreviation;
     }
@@ -28,6 +28,7 @@ public class Location {
         return places;
     }
 
+    @JsonProperty("post code") // JSON -> Nesne dönüşümü için değişken adlarınd aboşul varsa java ile uyumu sağlamak için kullanıldı.
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
@@ -36,6 +37,7 @@ public class Location {
         this.country = country;
     }
 
+    @JsonProperty("country abbreviation") // JSON -> Nesne dönüşümü için değişken adlarınd aboşul varsa java ile uyumu sağlamak için kullanıldı.
     public void setCountryabbreviation(String countryabbreviation) {
         this.countryabbreviation = countryabbreviation;
     }
