@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
@@ -280,6 +282,26 @@ public class ZippoTest {
 
         System.out.println(extractValue);
         Assert.assertEquals(extractValue, "Beverly Hills");
+    }
+
+    @Test
+    public void extractingJsonPathList()
+    {
+        List<String> liste=
+        given()
+
+                .when()
+                .get("/tr/01000")
+
+                .then()
+                //.log().body()
+                .extract().path("places.'place name'")// [0] bir elaman indexi verilmeyince
+                                                        // dizideki bütün 'place name' leri alır
+                                                        // dönüş tipi string list olur.
+        ;
+
+        System.out.println(liste);
+        Assert.assertTrue(liste.contains("Çaputçu Köyü"));
     }
 
 
