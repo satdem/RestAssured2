@@ -26,7 +26,7 @@ public class Task {
      * create a request to https://jsonplaceholder.typicode.com/todos/2
      *  expect status 200
      *  expect content type JSON
-     *  expect response complated status to be false
+     *  expect response completed status to be false
      */
 
 

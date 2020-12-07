@@ -47,7 +47,19 @@ public class TaskSolution {
                 ;
     }
 
-
+    @Test
+    public void task4()
+    {
+        given()
+                .when()
+                .get("https://jsonplaceholder.typicode.com/todos/2")
+                .then()
+                .log().body()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("completed", equalTo(false))
+        ;
+    }
 
 
 
