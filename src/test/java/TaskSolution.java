@@ -36,7 +36,15 @@ public class TaskSolution {
     @Test
     public void task3()
     {
-
+        given()
+                .when()
+                .get("https://jsonplaceholder.typicode.com/todos/2")
+                .then()
+                .log().body()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("title", equalTo("quis ut nam facilis et officia qui"))
+                ;
     }
 
 
