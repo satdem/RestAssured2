@@ -61,6 +61,22 @@ public class TaskSolution {
         ;
     }
 
+    @Test
+    public void task5()
+    {
+        given()
+                .when()
+                .get("https://jsonplaceholder.typicode.com/todos")
+                .then()
+                .log().body()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("userId[2]", equalTo(1))
+                .body("title[2]", equalTo("fugiat veniam minus"))
+        ;
+    }
+
+
 
 
 
