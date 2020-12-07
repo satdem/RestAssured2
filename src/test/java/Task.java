@@ -9,10 +9,10 @@ public class Task {
      */
 
     /** Task 2
-     * create a request to https://httpstat.us/418
-     * expect status 418
+     * create a request to https://httpstat.us/203
+     * expect status 203
      * expect content type TEXT
-     * expect BODY to be equal to "418 I'm a teapot"
+     * expect BODY to be equal to "203 Non-Authoritative Information"
      */
 
     /** Task 3

@@ -24,14 +24,23 @@ public class TaskSolution {
     {
         given()
                 .when()
-                .get("https://httpstat.us/418")
+                .get("https://httpstat.us/203")
                 .then()
                 .log().body()
-                .statusCode(418)
+                .statusCode(203)
                 .contentType(ContentType.TEXT)
-                .body( equalTo("418 I'm a teapot"))
+                .body( equalTo("203 Non-Authoritative Information"))
         ;
     }
+
+    @Test
+    public void task3()
+    {
+
+    }
+
+
+
 
 
 
