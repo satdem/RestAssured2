@@ -322,6 +322,8 @@ public class ZippoTest {
         System.out.println(location.getCountry());
         System.out.println(location.getPlaces());
         System.out.println(location.getPlaces().get(0).getState());
+
+        
     }
 
 
