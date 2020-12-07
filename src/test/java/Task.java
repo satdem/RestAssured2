@@ -12,9 +12,15 @@ public class Task {
      * create a request to https://httpstat.us/418
      * expect status 418
      * expect content type TEXT
-     * expect body to be equel to "418 I'm a teapot"
+     * expect BODY to be equal to "418 I'm a teapot"
      */
 
+    /** Task 3
+     *  create a request to https://jsonplaceholder.typicode.com/todos/2
+     *  expect status 200
+     *  expect content type JSON
+     *  expect title in response body to be "quis ut nam facilis et officia qui"
+     */
 
 
 
