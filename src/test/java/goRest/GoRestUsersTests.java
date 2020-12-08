@@ -42,7 +42,7 @@ public class GoRestUsersTests {
         given()
                 .header("Authorization","Bearer 6a72f07ad4685b1a298a2615c2a4683c5513b67a62991ac4f3e56fa1ebd113cb")
                 .contentType(ContentType.JSON)
-                .body("{\"name\":\"techno\", \"gender\":\"Male\", \"email\":\"{{$randomEmail}}\", \"status\":\"Active\"}")
+                .body("{\"name\":\"techno\", \"gender\":\"Male\", \"email\":\""+getRandomEmail()+"\", \"status\":\"Active\"}")
                 .when()
                 .post("https://gorest.co.in/public-api/users")
                 .then()
