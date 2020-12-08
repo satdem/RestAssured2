@@ -2,6 +2,7 @@ package goRest;
 
 import goRest.model.User;
 import io.restassured.http.ContentType;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 public class GoRestUsersTests {
+
+    int userId;
 
     @Test
     public void getUsers()
@@ -24,13 +27,44 @@ public class GoRestUsersTests {
                 .contentType(ContentType.JSON) // burda dönen verinin type ni kontrol ettik.
                 .body("code", equalTo(200)) // dönen (respons) body nin ilk bölümündeki code un değeri kontorl edildi.
                 .body("data", not(empty())) // data bölümünün bboş olmadığı kontrol edildi.
-                .extract().jsonPath().getList("data" , User.class)
+                .extract().jsonPath().getList("data" , User.class)// en sona yazılır.
        ;
 
         for(User us : userList)
             System.out.println(us.toString());
 
     }
+
+    @Test
+    public void createUser()
+    {
+        userId =
+        given()
+                .header("Authorization","Bearer 6a72f07ad4685b1a298a2615c2a4683c5513b67a62991ac4f3e56fa1ebd113cb")
+                .contentType(ContentType.JSON)
+                .body("{\"name\":\"techno\", \"gender\":\"Male\", \"email\":\"{{$randomEmail}}\", \"status\":\"Active\"}")
+                .when()
+                .post("https://gorest.co.in/public-api/users")
+                .then()
+                .log().body()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("code", equalTo(201))
+                .extract().jsonPath().getInt("data.id")
+        ;
+    }
+
+    private String getRandomEmail()
+    {
+        return RandomStringUtils.randomAlphabetic(8)+"@gmail";
+    }
+
+//    https://gorest.co.in/public-api/users -> post
+//    headera ekle Bearer 6a72f07ad4685b1a298a2615c2a4683c5513b67a62991ac4f3e56fa1ebd113cb
+//    {"name":"{{$randomFullName}}", "gender":"Male", "email":"{{$randomEmail}}", "status":"Active"}
+//    body content JSON
+//    işlemin sonucnda id yi almıştık
+//    genel kontroller
 
 
 
