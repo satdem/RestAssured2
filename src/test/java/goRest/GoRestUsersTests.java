@@ -68,6 +68,21 @@ public class GoRestUsersTests {
 //    işlemin sonucnda id yi almıştık
 //    genel kontroller
 
+    @Test(dependsOnMethods = "createUser")
+    public void getUserById()
+    {
+        given()
+                .pathParam("userId", userId)
+                .when()
+                .get("https://gorest.co.in/public-api/users/{userId}")
+                .then()
+                .statusCode(200)
+                .body("code", equalTo(200))
+                .body("data.id", equalTo(userId))
+                ;
+    }
+
+
 
 
 }
