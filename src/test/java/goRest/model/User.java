@@ -1,6 +1,6 @@
 package goRest.model;
 
-public class Users {
+public class User {
     private int id;
     private String name;
     private String email;
@@ -67,7 +67,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
