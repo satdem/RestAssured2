@@ -52,11 +52,13 @@ public class GoRestUsersTests {
                 .body("code", equalTo(201))
                 .extract().jsonPath().getInt("data.id")
         ;
+
+        System.out.println(userId);
     }
 
     private String getRandomEmail()
     {
-        return RandomStringUtils.randomAlphabetic(8)+"@gmail";
+        return RandomStringUtils.randomAlphabetic(8).toLowerCase()+"@gmail.com";
     }
 
 //    https://gorest.co.in/public-api/users -> post
