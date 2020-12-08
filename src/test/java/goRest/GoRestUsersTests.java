@@ -14,7 +14,7 @@ public class GoRestUsersTests {
 
     int userId;
 
-    @Test
+    @Test(enabled = false)
     public void getUsers()
     {
         List<User> userList=
@@ -58,6 +58,7 @@ public class GoRestUsersTests {
 
     private String getRandomEmail()
     {
+        //randomAlphabetic : emailde geçerli olmayan karakter getirebilir, hata oluşturabilir.
         return RandomStringUtils.randomAlphabetic(8).toLowerCase()+"@gmail.com";
     }
 
@@ -83,6 +84,28 @@ public class GoRestUsersTests {
     }
 
 
+    @Test(dependsOnMethods = "createUser")
+    public void updateUserById()
+    {
+        String newName="mehmet yılmaz";
+        given()
+                .header("Authorization","Bearer 6a72f07ad4685b1a298a2615c2a4683c5513b67a62991ac4f3e56fa1ebd113cb")
+                .contentType(ContentType.JSON)
+                .body("{\"name\":\""+newName+"\"}")
+                .pathParam("userId",userId)
+                .when()
+                .put("https://gorest.co.in/public-api/users/{userId}")
+                .then()
+                .statusCode(200)
+                .body("code", equalTo(200))
+                .body("data.name", equalTo(newName))
+                ;
+    }
+
+//    https://gorest.co.in/public-api/users/{{userId}}   -> put
+//    Authorization Bearer 6a72f07ad4685b1a298a2615c2a4683c5513b67a62991ac4f3e56fa1ebd113cb
+//    body-> {"name":"mehmet yılmaz"} JSON
+//    normal kontroller ve name kontrolü
 
 
 }
