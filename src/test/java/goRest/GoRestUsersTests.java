@@ -2,6 +2,7 @@ package goRest;
 
 import goRest.model.User;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.Test;
 
@@ -122,7 +123,7 @@ public class GoRestUsersTests {
                 ;
     }
 
-    @Test(dependsOnMethods = "deleteUserById") // 1 değer olmayanlara göre sonra çalışacak
+    @Test(dependsOnMethods = "deleteUserById")
     public void deleteUserByIdNegative()
     {
         given()
@@ -135,6 +136,35 @@ public class GoRestUsersTests {
                 .body("code", equalTo(404))
         ;
     }
+
+    @Test
+    public void responseSample()
+    {
+        Response response = // birden fazla extract yapmak istediğiniz değişken değeri var ise sonuç ir değişkene atılır
+        given()
+                .when()
+                .get("https://gorest.co.in/public-api/users")
+                .then()
+                //.log().body()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract().response()
+                ;
+
+        // sonra istenen değerler istenen formata göre alınır.
+        User user2= response.jsonPath().getObject("data[1]", User.class); // 1 indexli 2.sıradaki user ı verdi
+        List<User> userList = response.jsonPath().getList("data", User.class); //bütün userları verdi
+        int total = response.jsonPath().getInt("meta.pagination.total");
+        int code = response.jsonPath().getInt("code");
+
+        System.out.println("users2="+user2);
+        System.out.println("users size="+userList.size());
+        System.out.println("total="+ total);
+        System.out.println("code="+code);
+    }
+
+
+
 
 
 }
