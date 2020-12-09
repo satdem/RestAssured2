@@ -3,6 +3,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.Test;
 import pojo.ToDo;
 
+import java.util.Arrays;
+
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
@@ -97,6 +99,22 @@ public class TaskSolution {
     }
 
 
+    @Test
+    public void task7()
+    {
+        ToDo[] toDoArray=
+                given()
+                        .when()
+                        .get("https://jsonplaceholder.typicode.com/todos")
+                        .then()
+                        //.log().body()
+                        .statusCode(200)
+                        .contentType(ContentType.JSON)
+                        .extract().as(ToDo[].class)
+                ;
+
+        System.out.println(Arrays.toString(toDoArray) );
+    }
 
 
 
