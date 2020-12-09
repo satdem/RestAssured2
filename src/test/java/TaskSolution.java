@@ -1,6 +1,7 @@
 import io.restassured.http.ContentType;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.Test;
+import pojo.ToDo;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
@@ -76,6 +77,25 @@ public class TaskSolution {
                 .body("title[2]", equalTo("fugiat veniam minus"))
         ;
     }
+
+
+    @Test
+    public void task6()
+    {
+        ToDo toDo=
+        given()
+                .when()
+                .get("https://jsonplaceholder.typicode.com/todos/2")
+                .then()
+                .log().body()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract().as(ToDo.class)
+        ;
+
+        System.out.println(toDo);
+    }
+
 
 
 

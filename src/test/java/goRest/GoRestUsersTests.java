@@ -137,7 +137,7 @@ public class GoRestUsersTests {
         ;
     }
 
-    @Test
+    @Test(enabled = false)
     public void responseSample()
     {
         Response response = // birden fazla extract yapmak istediğiniz değişken değeri var ise sonuç ir değişkene atılır
