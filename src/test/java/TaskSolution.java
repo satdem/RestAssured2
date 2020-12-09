@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import pojo.ToDo;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
@@ -117,6 +118,22 @@ public class TaskSolution {
     }
 
 
+    @Test
+    public void task8()
+    {
+        List<ToDo> toDoList= Arrays.asList
+                (given()
+                        .when()
+                        .get("https://jsonplaceholder.typicode.com/todos")
+                        .then()
+                        //.log().body()
+                        .statusCode(200)
+                        .contentType(ContentType.JSON)
+                        .extract().as(ToDo[].class))
+                ;
+
+        System.out.println(toDoList);
+    }
 
 
 
