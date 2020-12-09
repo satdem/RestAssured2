@@ -108,4 +108,33 @@ public class GoRestUsersTests {
 //    normal kontroller ve name kontrolü
 
 
+    @Test(dependsOnMethods = "createUser", priority = 1) // 1 değer olmayanlara göre sonra çalışacak
+    public void deleteUserById()
+    {
+        given()
+                .header("Authorization","Bearer 6a72f07ad4685b1a298a2615c2a4683c5513b67a62991ac4f3e56fa1ebd113cb")
+                .pathParam("userId", userId)
+                .when()
+                .delete("https://gorest.co.in/public-api/users/{userId}")
+                .then()
+                .statusCode(200)
+                .body("code", equalTo(204))
+                ;
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
