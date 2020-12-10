@@ -73,6 +73,26 @@ public class CountryTest {
         System.out.println(id);
     }
 
+    @Test(dependsOnMethods = "createCountry")
+    public void createCountryNegative()
+    {
+        Country country=new Country();
+        country.setName(randomGenName);
+        country.setCode(randomGenCode);
+
+        given()
+                .cookies(cookies)  // aldığımız yetki bilgilerini barındıran bilgileri tekrar göndererek yetkili işlem yaptığımızı belirttik.
+                .body(country) // JSON formatında vermek yerine NESNE olarak daha kolay formatta verdim.
+                .contentType(ContentType.JSON) // verilen bilgiyi JSON olarak gönder
+                .when()
+                .post("/school-service/api/countries")
+                .then()
+                .log().body()
+                .statusCode(400)
+                .body("message", equalTo("The Country with Name \""+randomGenName+"\" already exists."))
+        ;
+    }
+
 
 
 
