@@ -18,6 +18,7 @@ public class CountryTest {
     Cookies cookies;
     private String randomGenName;
     private String randomGenCode;
+    String id;
 
     @BeforeClass
     public void login()
@@ -55,16 +56,25 @@ public class CountryTest {
         country.setName(randomGenName);
         country.setCode(randomGenCode);
 
-          given()
+        id=  given()
+                  .cookies(cookies)  // aldığımız yetki bilgilerini barındıran bilgileri tekrar göndererek yetkili işlem yaptığımızı belirttik.
                   .body(country) // JSON formatında vermek yerine NESNE olarak daha kolay formatta verdim.
                   .contentType(ContentType.JSON) // verilen bilgiyi JSON olarak gönder
-                  .cookies(cookies)  // aldığımız yetki bilgilerini barındıran bilgileri tekrar göndererek yetkili işlem yaptığımızı belirttik.
-
                   .when()
-
+                  .post("/school-service/api/countries")
                   .then()
+                  .log().body()
+                  .statusCode(201)
+                  .body("name", equalTo(randomGenName))
+                  .extract().jsonPath().getString("id")
+                  //.extract().path("id"); // 2.yöntem
           ;
+
+        System.out.println(id);
     }
+
+
+
 
 }
 
