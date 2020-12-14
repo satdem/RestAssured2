@@ -122,6 +122,50 @@ public class CountryTest {
 //    }
     }
 
+    @Test(dependsOnMethods = "updateCountry")
+    public void deleteById()
+    {
+        given()
+                .cookies(cookies)
+                .pathParam("countryId", id)
+                .when()
+                .delete("/school-service/api/countries/{countryId}")
+                .then()
+                .statusCode(200)
+                .body(equalTo(""))
+                ;
+    }
+
+    @Test(dependsOnMethods = "deleteById")
+    public void negativeDeleteById()
+    {
+        given()
+                .cookies(cookies)
+                .pathParam("countryId", id)
+                .when()
+                .delete("/school-service/api/countries/{countryId}")
+                .then()
+                .statusCode(404)
+                .body("message", equalTo("Country not found"))
+        ;
+
+        //    {
+//        "type": "https://support.mersys.io/cloud/problem/problem-with-message",
+//            "status": 404,
+//            "path": "/api/countries/5fd7aab8146e3837d4905510",
+//            "code": null,
+//            "message": "Country not found",
+//            "lang": null,
+//            "uri": null
+//    }
+    }
+
+
+
+
+
+
+
 
 
 
