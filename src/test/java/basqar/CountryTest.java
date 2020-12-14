@@ -93,6 +93,38 @@ public class CountryTest {
         ;
     }
 
+    @Test(dependsOnMethods ="createCountry")
+    public void updateCountry()
+    {
+        Country country=new Country();
+        country.setId(id);
+        country.setName(RandomStringUtils.randomAlphabetic(8));
+        country.setCode(RandomStringUtils.randomAlphabetic(4));
+
+        given()
+                .cookies(cookies)
+                .body(country)
+                .contentType(ContentType.JSON)
+                .when()
+                .put("/school-service/api/countries")
+                .then()
+                .statusCode(200)
+                .body("name", equalTo(country.getName()))
+                .body("code", equalTo(country.getCode()))
+                ;
+
+        //    {
+//        "id": "5fd7aab8146e3837d4905510",
+//            "name": "Zimbabwe 851",
+//            "shortName": null,
+//            "translateName": [],
+//        "code": "GU 635"
+//    }
+    }
+
+
+
+
 
 
 
