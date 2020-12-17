@@ -1,0 +1,8 @@
+
+<suite name="Jenkins Test Suite">
+    <test name="Main Test">
+        <classes>
+            <class name="basqar.CountryTest"> </class>
+        </classes>
+    </test>
+</suite>
