@@ -139,21 +139,18 @@ public class CountryTest {
     @Test(dependsOnMethods = "deleteById")
     public void negativeDeleteById()
     {
-        try {
+
             given()
                     .cookies(cookies)
                     .pathParam("countryId", id)
                     .when()
                     .delete("/{countryId}")
                     .then()
-                    .statusCode(404)
+                    .log().body()
+                    .statusCode(405)
             ;
 
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
+
 
         //    {
 //        "type": "https://support.mersys.io/cloud/problem/problem-with-message",
