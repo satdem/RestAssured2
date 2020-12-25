@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 public class GoRestUsersTests {
@@ -41,7 +41,7 @@ public class GoRestUsersTests {
     {
         userId =
         given()
-                .header("Authorization","Bearer 6a72f07ad4685b1a298a2615c2a4683c5513b67a62991ac4f3e56fa1ebd113cb")
+                .header("Authorization","Bearer 0150ba090ec4ff7e9f3d4e1719ca3e27608b9fa4a0a0266afadb767b2c38f1c3")
                 .contentType(ContentType.JSON)
                 .body("{\"name\":\"techno\", \"gender\":\"Male\", \"email\":\""+getRandomEmail()+"\", \"status\":\"Active\"}")
                 .when()
@@ -90,7 +90,7 @@ public class GoRestUsersTests {
     {
         String newName="mehmet yılmaz";
         given()
-                .header("Authorization","Bearer 6a72f07ad4685b1a298a2615c2a4683c5513b67a62991ac4f3e56fa1ebd113cb")
+                .header("Authorization","Bearer 0150ba090ec4ff7e9f3d4e1719ca3e27608b9fa4a0a0266afadb767b2c38f1c3")
                 .contentType(ContentType.JSON)
                 .body("{\"name\":\""+newName+"\"}")
                 .pathParam("userId",userId)
@@ -113,7 +113,7 @@ public class GoRestUsersTests {
     public void deleteUserById()
     {
         given()
-                .header("Authorization","Bearer 6a72f07ad4685b1a298a2615c2a4683c5513b67a62991ac4f3e56fa1ebd113cb")
+                .header("Authorization","Bearer 0150ba090ec4ff7e9f3d4e1719ca3e27608b9fa4a0a0266afadb767b2c38f1c3")
                 .pathParam("userId", userId)
                 .when()
                 .delete("https://gorest.co.in/public-api/users/{userId}")
@@ -127,7 +127,7 @@ public class GoRestUsersTests {
     public void deleteUserByIdNegative()
     {
         given()
-                .header("Authorization","Bearer 6a72f07ad4685b1a298a2615c2a4683c5513b67a62991ac4f3e56fa1ebd113cb")
+                .header("Authorization","Bearer 0150ba090ec4ff7e9f3d4e1719ca3e27608b9fa4a0a0266afadb767b2c38f1c3")
                 .pathParam("userId", userId)
                 .when()
                 .delete("https://gorest.co.in/public-api/users/{userId}")

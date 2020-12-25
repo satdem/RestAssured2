@@ -13,7 +13,7 @@ import java.util.Map;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class CountryTest {
+public class CountryTest{
 
     Cookies cookies;
     private String randomGenName;
@@ -43,7 +43,6 @@ public class CountryTest {
                 .then()
                 .statusCode(200)
                 .extract().response().getDetailedCookies();
-                ;
 
         System.out.println(cookies);
     }
@@ -113,7 +112,7 @@ public class CountryTest {
                 .body("code", equalTo(country.getCode()))
                 ;
 
-        //    {
+        //       {
 //        "id": "5fd7aab8146e3837d4905510",
 //            "name": "Zimbabwe 851",
 //            "shortName": null,

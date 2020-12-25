@@ -1,0 +1,13 @@
+developer -> backend  -> api ve arkada çalışan sistemleri yazarlar
+          -> frontend -> UI ları yazarlar
+
+          {
+              "code": 200,
+              "meta": {
+                  "pagination": {
+                      "total": 1473,
+                      "pages": 74,
+                      "page": 10,  -> body.meta.pagination.page
+                      "limit": 20
+                   }
+              },

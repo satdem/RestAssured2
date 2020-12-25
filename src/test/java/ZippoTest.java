@@ -7,7 +7,8 @@ import io.restassured.specification.ResponseSpecification;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pojo.Location;
+
+
 
 import java.util.List;
 
@@ -277,7 +278,7 @@ public class ZippoTest {
                 .when()
                 .get("/us/90210")
                 .then()
-                //.log().body()
+                .log().body()
                 .extract().path("places[0].'place name'")
                 ;
 
@@ -296,17 +297,17 @@ public class ZippoTest {
 
                 .then()
                 //.log().body()
-                .extract().path("places.'place name'")// [0] bir elaman indexi verilmeyince
-                                                        // dizideki bütün 'place name' leri alır
-                                                        // dönüş tipi string list olur.
+                .extract().path("places.'place name'")
+                // [0] bir elaman indexi verilmeyince
+                // dizideki bütün 'place name' leri alır
+                // dönüş tipi string list olur.
         ;
 
         System.out.println(liste);
         Assert.assertTrue(liste.contains("Çaputçu Köyü"));
     }
 
-
-    @Test
+  /*  @Test
     public void extractingJsonAsPojo()
     {
         Location location=
@@ -324,7 +325,7 @@ public class ZippoTest {
         System.out.println(location.getPlaces().get(0).getState());
 
         
-    }
+    }*/
 
 
 
